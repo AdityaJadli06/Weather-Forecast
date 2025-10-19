@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast - Probability Based Predictions</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-cloud-sun"></i> Weather Forecast</h1>
+                <p>Probability-based weather predictions using historical data analysis</p>
+                <button id="refreshBtn" class="refresh-btn">
+                    <i class="fas fa-sync-alt"></i> Refresh Forecast
+                </button>
+            </div>
+        </header>
+
+        <!-- Current Weather Section -->
+        <section class="current-weather" id="currentWeather">
+            <div class="current-weather-card">
+                <div class="current-weather-main">
+                    <div class="weather-icon" id="currentIcon">☀️</div>
+                    <div class="weather-info">
+                        <h2 id="currentTemp">--°C</h2>
+                        <p id="currentCondition">Loading...</p>
+                        <p class="current-date" id="currentDate">--</p>
+                    </div>
+                </div>
+                <div class="weather-details">
+                    <div class="detail-item">
+                        <i class="fas fa-tint"></i>
+                        <span>Humidity</span>
+                        <span id="currentHumidity">--%</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-wind"></i>
+                        <span>Wind Speed</span>
+                        <span id="currentWind">-- km/h</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-percentage"></i>
+                        <span>Probability</span>
+                        <span id="currentProbability">--%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7-Day Forecast Section -->
+        <section class="forecast-section">
+            <h2><i class="fas fa-calendar-week"></i> 7-Day Forecast</h2>
+            <div class="forecast-container" id="forecastContainer">
+                <!-- Forecast cards will be dynamically generated -->
+            </div>
+        </section>
+
+        <!-- Probability Analysis Section -->
+        <section class="analysis-section">
+            <h2><i class="fas fa-chart-line"></i> Probability Analysis</h2>
+            <div class="analysis-content">
+                <div class="analysis-card">
+                    <h3>Weather Prediction Model</h3>
+                    <p>Our forecast uses advanced probability algorithms that analyze:</p>
+                    <ul>
+                        <li><i class="fas fa-database"></i> Historical weather patterns</li>
+                        <li><i class="fas fa-calendar-alt"></i> Seasonal probability distributions</li>
+                        <li><i class="fas fa-link"></i> Markov chain weather transitions</li>
+                        <li><i class="fas fa-chart-area"></i> Statistical weather modeling</li>
+                    </ul>
+                </div>
+                <div class="analysis-card">
+                    <h3>Accuracy Information</h3>
+                    <p>Prediction confidence levels:</p>
+                    <div class="confidence-levels">
+                        <div class="confidence-item">
+                            <div class="confidence-bar high"></div>
+                            <span>High (70-100%): Very reliable</span>
+                        </div>
+                        <div class="confidence-item">
+                            <div class="confidence-bar medium"></div>
+                            <span>Medium (40-69%): Moderately reliable</span>
+                        </div>
+                        <div class="confidence-item">
+                            <div class="confidence-bar low"></div>
+                            <span>Low (0-39%): Less reliable</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Analyzing weather patterns...</p>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message" id="errorMessage">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span id="errorText">Something went wrong. Please try again.</span>
+            <button onclick="hideError()" class="close-error">×</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Weather Forecast App - Powered by Probability-based Predictions</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
