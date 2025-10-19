@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}Weather Forecast - Home{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="text-center mb-4">
+                <h1 class="display-4 text-white mb-3">
+                    <i class="fas fa-cloud-sun weather-icon-large"></i>
+                    Weather Forecast System
+                </h1>
+                <p class="lead text-white">Get accurate weather forecasts and historical climate data for any location worldwide</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-lg weather-search-card">
+            <div class="card-header bg-gradient-primary text-white text-center">
+                <h3 class="mb-0"><i class="fas fa-search-location"></i> Weather Search</h3>
+            </div>
+            <div class="card-body p-4">
+                {% if error %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="fas fa-exclamation-triangle"></i> {{ error }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endif %}
+                
+                <!-- Current Weather Search -->
+                <form method="POST" action="{{ url_for('get_weather') }}" class="weather-form">
+                    <div class="mb-4">
+                        <label for="city" class="form-label fw-bold">Enter City Name:</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                            <input type="text" class="form-control form-control-lg" id="city" name="city" 
+                                   placeholder="e.g., London, New York, Tokyo, Mumbai" required>
+                        </div>
+                        <div class="form-text">Enter city name with country code for better accuracy (e.g., "London,UK")</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg w-100 mb-4">
+                        <i class="fas fa-search"></i> Get Current Weather & Forecast
+                    </button>
+                </form>
+                
+                <!-- Divider -->
+                <hr class="my-4">
+                
+                <!-- Historical Weather Search -->
+                <h5 class="mb-3"><i class="fas fa-history"></i> Historical Weather Data</h5>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="historical-city" class="form-label">City Name:</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-city"></i></span>
+                            <input type="text" class="form-control" id="historical-city" 
+                                   placeholder="Enter city name">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="historical-date" class="form-label">Select Date:</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                            <input type="date" class="form-control" id="historical-date">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary btn-lg w-100 mt-3" onclick="getHistoricalData()">
+                    <i class="fas fa-history"></i> Get Historical Weather Data
+                </button>
+                
+                <!-- Historical Results -->
+                <div id="historical-result" class="mt-4"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="row mt-5" id="about">
+    <div class="col-md-12">
+        <div class="card shadow features-card">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0 text-center"><i class="fas fa-star"></i> System Features</h4>
+            </div>
+            <div class="card-body">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="feature-box text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-thermometer-half"></i>
+                            </div>
+                            <h6>Current Weather</h6>
+                            <p>Get real-time weather conditions including temperature, humidity, pressure, wind speed, and visibility for any city worldwide.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-box text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-calendar-week"></i>
+                            </div>
+                            <h6>5-Day Forecast</h6>
+                            <p>View detailed weather forecasts for the next 5 days with daily high and low temperatures, weather conditions, and more.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-box text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <h6>Historical Data</h6>
+                            <p>Access comprehensive historical weather data to analyze past weather patterns and climate conditions for research.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Additional Info Section -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card info-card">
+            <div class="card-body">
+                <h6><i class="fas fa-cloud-sun-rain text-primary"></i> Weather Parameters</h6>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success"></i> Temperature (°C/°F)</li>
+                    <li><i class="fas fa-check text-success"></i> Humidity (%)</li>
+                    <li><i class="fas fa-check text-success"></i> Atmospheric Pressure (hPa)</li>
+                    <li><i class="fas fa-check text-success"></i> Wind Speed & Direction</li>
+                    <li><i class="fas fa-check text-success"></i> Visibility (km)</li>
+                    <li><i class="fas fa-check text-success"></i> Sunrise & Sunset Times</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card info-card">
+            <div class="card-body">
+                <h6><i class="fas fa-globe text-success"></i> Global Coverage</h6>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success"></i> Worldwide city coverage</li>
+                    <li><i class="fas fa-check text-success"></i> Real-time data updates</li>
+                    <li><i class="fas fa-check text-success"></i> Multiple data sources</li>
+                    <li><i class="fas fa-check text-success"></i> Accurate predictions</li>
+                    <li><i class="fas fa-check text-success"></i> Historical data from 1940s</li>
+                    <li><i class="fas fa-check text-success"></i> Mobile-friendly interface</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
